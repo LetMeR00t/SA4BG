@@ -57,3 +57,48 @@ class Equipments():
         None
     """
     return "Equipments: \"Cards -> "+str(self._cards)+"\", \"Dices -> "+str(self._dices)+"\", \"Board -> "+str(self._board)+"\""
+
+  def getCards(self):
+    """
+    Get the cards 
+    
+    Args:
+        self: the Equipments object
+    
+    Returns:
+        A list that contains all Card objects
+    
+    Raises:
+        None
+    """
+    return self._cards
+
+  def getDices(self):
+    """
+    Get the dices 
+    
+    Args:
+        self: the Equipments object
+    
+    Returns:
+        A list that contains all Dice objects
+    
+    Raises:
+        None
+    """
+    return self._dices
+
+  def getBoard(self):
+    """
+    Get the board 
+    
+    Args:
+        self: the Equipments object
+    
+    Returns:
+        the Board object
+    
+    Raises:
+        None
+    """
+    return self._board
