@@ -1,17 +1,17 @@
 ## IMPORTS ##
-from equipments.dice import Dice
-from equipments.card import Card
-from equipments.board import Board
+from equipment.dice import Dice
+from equipment.card import Card
+from equipment.board import Board
 
 ## CLASS ##
-class Equipment():
+class Equipments():
   """
-  Define an Equipment class
+  Define an Equipments class
   """
 
   def __init__(self, cards=[], dices=[], board=None):
     """
-    Default constructor that instanciates an Equipment class
+    Default constructor that instanciates an Equipments class
     
     Args:
         cards: A list of Card objects
@@ -27,31 +27,31 @@ class Equipment():
     if isinstance(cards, list):
       for c in cards:
         if not isinstance(c, Card):
-          raise TypeError('"cards" attribute for an Equipment object must be a list of Card objects')
+          raise TypeError('"cards" attribute for an Equipments object must be a list of Card objects')
       self._cards = cards
     else:
-      raise TypeError('"cards" attribute for an Equipment object must be a list')
+      raise TypeError('"cards" attribute for an Equipments object must be a list')
     if isinstance(dices, list):
       for d in dices:
         if not isinstance(d, Dice):
-          raise TypeError('"dices" attribute for an Equipment object must be a list of Dice objects')
+          raise TypeError('"dices" attribute for an Equipments object must be a list of Dice objects')
       self._dices = dices
     else:
-      raise TypeError('"dices" attribute for an Equipment object must be a list')
+      raise TypeError('"dices" attribute for an Equipments object must be a list')
     if isinstance(board, Board) or board is None:
       self._board = board
     else:
-      raise TypeError('"board" attribute for an Equipment object must be a Board object')
+      raise TypeError('"board" attribute for an Equipments object must be a Board object')
 
   def __str__(self):
     """
-    Define the string represention of an Equipment object
+    Define the string represention of an Equipments object
     
     Args:
-        self: the Equipment object
+        self: the Equipments object
     
     Returns:
-        A string that represents the Equipment object
+        A string that represents the Equipments object
     
     Raises:
         None
