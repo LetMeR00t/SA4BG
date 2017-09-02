@@ -18,7 +18,7 @@ class Card():
         The new object that was instanciated
     
     Raises:
-        TypeError : Raise a TypeError if name is not a string or value is not 
+        TypeError: Raise a TypeError if "name" is not a string or "value" is not 
         an integer
     """
     if isinstance(name, str):

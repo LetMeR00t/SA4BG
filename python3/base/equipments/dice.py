@@ -18,7 +18,7 @@ class Dice():
         The new object that was instanciated
     
     Raises:
-        TypeError : Raise a TypeError if values is not a list
+        TypeError: Raise a TypeError if "values" is not a list
     """
     if isinstance(values, list):
       self._values =  values
@@ -39,6 +39,3 @@ class Dice():
         None
     """
     return self._values[random.randint(0,len(self._values)-1)]
-
-x = Dice()
-print(x.throwTheDice())

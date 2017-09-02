@@ -17,8 +17,8 @@ class Board():
         The new object that was instanciated
     
     Raises:
-        TypeError : Raise a TypeError if name is not a string or value is not 
-        an integer
+        TypeError: Raise a TypeError if "name" is not a string or "value" is
+        not an integer
     """
     if isinstance(squares, list):
       for o in squares:
