@@ -10,7 +10,7 @@ class Game(metaclass=ABCMeta):
   Define a Game class
   """
 
-  def __init__(self, name="Unamed", equipments=None, winConditions=[], players=[]):
+  def __init__(self, name="Unamed", equipments=None, winConditions=[], history=None):
     """
     Default constructor that instanciates a Game class
     
@@ -18,7 +18,7 @@ class Game(metaclass=ABCMeta):
         name: A string that represents the Game object
         equipments: An Equipment object that represents all the equipments
         winConditions: A list that represents all the WinCondition objects
-        players: A list that represents all the Player objects, the order of the list will be used as order of the game
+        history: A History object that represents all actions realized during the game
     
     Returns:
         The new object that was instanciated
@@ -41,13 +41,10 @@ class Game(metaclass=ABCMeta):
       self._winConditions = winConditions
     else:
       raise TypeError('"winConditions" attribute for a WinCondition object must be a list')
-    if isinstance(players, list):
-      for p in players:
-        if not isinstance(p, Player):
-          raise TypeError('"players" attribute for a Game object must be a list of Player objects')
-      self._players = players
+    if isinstance(history, History):
+      self._history = history
     else:
-      raise TypeError('"players" attribute for a Game object must be a list')
+      raise TypeError('"history" attribute for a Game object must be a History object')
     # Define a number of rounds equals to 1
     self._numberOfRounds = 1
     # Define a variable that will contain the win condition(s)
@@ -84,40 +81,6 @@ class Game(metaclass=ABCMeta):
     """
     pass
 
-  def play(self):
-    """
-    Play a complete game (initiate, start the game and end when a win condition happens)
-    
-    Args:
-        self: the Game object
-    
-    Returns:
-        None
-    
-    Raises:
-        None
-    """
-    end = False
-    i = 0
-    numberOfPlayers = len(self._players)
-
-    # Initialize the game
-    self.init() 
-   
-    # Play the game while no win condition happens
-    while (end == False):
-      # Play a turn for a player
-      self.playTurnForPlayer(self._players[i%numberOfPlayers])
-      i += 1
-      # Check the win conditions
-      for wc in self._winConditions:
-        if wc.checkCondition(self):
-          self._victoryConditions.append(wc)
-          end = True
-      if (end == False and i%numberOfPlayers == 0):
-        self._numberOfRounds += 1
-        
-
   @abstractmethod
   def playTurnForPlayer(self,player):
     """
@@ -136,17 +99,63 @@ class Game(metaclass=ABCMeta):
     """
     pass
 
-  def getPlayers(self):
+  def getWinConditions(self):
     """
-    Get the players of the game
+    Get the list of WinCondition objects 
     
     Args:
         self: the Game object
     
     Returns:
-        A list of Player objects
+        the list of WinCondition objects
+    
+    Raises:
+        None
+    """ 
+    return self._winConditions
+
+  def addVictoryCondition(self,wc):
+    """
+    Add a win condition in the victory condition list 
+    
+    Args:
+        self: the Game object
+        wc: the WinCondition object to add
+    
+    Returns:
+        None
     
     Raises:
         None
     """
-    return self._players
+    return self._victoryConditions.append(wc)
+
+  def getNumberOfRounds(self):
+    """
+    Simply get the number of rounds 
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        an integer that represents the number of rounds
+    
+    Raises:
+        None
+    """
+    return self._numberOfRounds
+
+  def increaseNumberOfRounds(self):
+    """
+    Simply increase the number of rounds 
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        None
+    
+    Raises:
+        None
+    """
+    self._numberOfRounds += 1
