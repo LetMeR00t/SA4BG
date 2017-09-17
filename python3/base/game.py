@@ -1,8 +1,10 @@
 ## IMPORTS ##
 from abc import ABCMeta, abstractmethod
-from equipments import Equipments
-from wincondition import WinCondition
-from player import Player
+from base.equipments import Equipments
+from base.wincondition import WinCondition
+from base.player import Player
+from base.history import History
+
 
 ## CLASS ##
 class Game(metaclass=ABCMeta):
@@ -41,7 +43,7 @@ class Game(metaclass=ABCMeta):
       self._winConditions = winConditions
     else:
       raise TypeError('"winConditions" attribute for a WinCondition object must be a list')
-    if isinstance(history, History):
+    if isinstance(history, History) or history is None:
       self._history = history
     else:
       raise TypeError('"history" attribute for a Game object must be a History object')
@@ -66,9 +68,9 @@ class Game(metaclass=ABCMeta):
     return "Game \""+self._name+"\""
 
   @abstractmethod
-  def init(self):
+  def prepare(self):
     """
-    Abstract method that initiate the game 
+    Abstract method that prepare the game 
     
     Args:
         self: the Game object

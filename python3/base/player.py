@@ -1,5 +1,5 @@
 ## IMPORTS ##
-from equipments import Equipments
+from base.equipments import Equipments
 
 ## CLASS ##
 class Player():
@@ -24,8 +24,8 @@ class Player():
       self._name =  name
     else:
       raise TypeError('"name" attribute for a Player object must be a string')
-    # Define a private empty equipment
-    self._equipment = Equipment()
+    # Define a private empty Equipments object
+    self._equipments = Equipments()
     # Define a score equals to 0
     self._score = 0
 
@@ -90,17 +90,17 @@ class Player():
     """
     self._score = newScore
 
-  def getEquipment(self)
+  def getEquipments(self):
     """
-    Get the private equipment of the Player object
+    Get the private Equipments object of the Player object
     
     Args:
         self: the Player object
     
     Returns:
-        An Equipment object that represent all the private equipment of this player
+        An Equipments object that represent all the private equipments of this player
     
     Raises:
         None
     """
-    return self._equipment
+    return self._equipments

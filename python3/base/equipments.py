@@ -1,7 +1,7 @@
 ## IMPORTS ##
-from equipment.dice import Dice
-from equipment.card import Card
-from equipment.board import Board
+from base.equipment.dice import Dice
+from base.equipment.card import Card
+from base.equipment.board import Board
 
 ## CLASS ##
 class Equipments():

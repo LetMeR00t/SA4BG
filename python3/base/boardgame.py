@@ -67,7 +67,7 @@ class BoardGame():
     numberOfPlayers = len(self._players)
 
     # Initialize the game
-    self._game.init()
+    self._game.prepare()
 
     # Play the game while no win condition happens
     while (end == False):
