@@ -1,6 +1,6 @@
 ## IMPORTS ##
-from game import Game
-from player import Player
+from base.game import Game
+from base.player import Player
 
 ## CLASS ##
 class BoardGame():
@@ -28,9 +28,9 @@ class BoardGame():
       raise TypeError('"game" attribute for a BoardGame object must be a Game object')
     if isinstance(players, list):
       for p in players:
-        if isinstance(p, Player):
+        if not isinstance(p, Player):
           raise TypeError('Each object of the "players" attribute must be a Player object')
-      self._players = player
+      self._players = players
     else:
       raise TypeError('"players" attribute for a WinCondition object must be a list')
 
@@ -62,12 +62,12 @@ class BoardGame():
     Raises:
         None
     """
-    end = False
+    end = True
     i = 0
     numberOfPlayers = len(self._players)
 
     # Initialize the game
-    self._game.prepare()
+    self._game.prepare(self._players)
 
     # Play the game while no win condition happens
     while (end == False):

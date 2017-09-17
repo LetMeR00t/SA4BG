@@ -59,3 +59,19 @@ class Card():
         None
     """
     return self._value
+
+  def __str__(self):
+    """
+    Define the string represention of a Card object
+    
+    Args:
+        self: the Card object
+    
+    Returns:
+        A string that represents the Card object
+    
+    Raises:
+        None
+    """
+    return "Card -> Name: \""+self._name+"\", Value: \""+str(self._value)+"\""
+

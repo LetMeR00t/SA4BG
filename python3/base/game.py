@@ -68,12 +68,13 @@ class Game(metaclass=ABCMeta):
     return "Game \""+self._name+"\""
 
   @abstractmethod
-  def prepare(self):
+  def prepare(self,players):
     """
     Abstract method that prepare the game 
     
     Args:
         self: the Game object
+        players: a list of Players objects
     
     Returns:
         None
@@ -161,3 +162,18 @@ class Game(metaclass=ABCMeta):
         None
     """
     self._numberOfRounds += 1
+
+  def getEquipments(self):
+    """
+    Get the Equipments object of the current game 
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        The Equipments object
+    
+    Raises:
+        None
+    """
+    return self._equipments

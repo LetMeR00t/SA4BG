@@ -1,5 +1,6 @@
 ## IMPORTS ##
 from base.game import Game
+from sixNimmt.equipments import SixNimmtEquipments
 
 ## CLASS ##
 class SixNimmt(Game):
@@ -7,7 +8,7 @@ class SixNimmt(Game):
   Here, we define the class for the 6 Nimmt! game
   """
 
-  def __init__(self, name="Unamed", equipments=None, winConditions=[], history=None):
+  def __init__(self, name="6 Nimmt!", equipments=SixNimmtEquipments(), winConditions=[], history=None):
     """
     Default constructor that instanciates a Game class
     
@@ -25,12 +26,13 @@ class SixNimmt(Game):
     """
     super().__init__(name,equipments,winConditions,history)
 
-  def prepare(self):
+  def prepare(self, players):
     """
-    Abstract method that prepare the game 
+    Prepare the game 
     
     Args:
         self: the Game object
+        players: a list of SixNimmtPlayer objects
     
     Returns:
         None
@@ -38,7 +40,16 @@ class SixNimmt(Game):
     Raises:
         None
     """
-    pass
+    # Get the Equipments object
+    equipments = self.getEquipments()
+
+    # Shuffle the cards, there is only one stack in this game so the index is 0
+    equipments.shuffleTheCards(0)
+
+    # Distribute cards to each player
+    for p in players:
+      for i in range(0,10):
+        p.getEquipments().addCard(0,equipments.popCard(0))
 
   def playTurnForPlayer(self,player):
     """

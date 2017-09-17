@@ -7,7 +7,7 @@ class Player():
   Define a Player class
   """
 
-  def __init__(self, name="Unamed"):
+  def __init__(self, name="Unamed", equipments=None):
     """
     Default constructor that instanciates a Player class
     
@@ -25,7 +25,10 @@ class Player():
     else:
       raise TypeError('"name" attribute for a Player object must be a string')
     # Define a private empty Equipments object
-    self._equipments = Equipments()
+    if isinstance(equipments, Equipments) or equipments is None:
+      self._equipments = equipments
+    else:
+      raise TypeError('"equipments" attribute for a Player object must be a Equipments object')
     # Define a score equals to 0
     self._score = 0
 
@@ -42,7 +45,7 @@ class Player():
     Raises:
         None
     """
-    return "Player \""+self._name+"\""
+    return "Player -> Name: \""+self._name+"\", "+str(self._equipments)
 
   def getName(self):
     """
