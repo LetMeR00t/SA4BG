@@ -20,19 +20,13 @@ class BoardGame():
         The new object that was instanciated
     
     Raises:
-        TypeError: Raise a TypeError if "name" is not a string
+        None
     """
-    if isinstance(game, Game):
-      self._game =  game
-    else:
-      raise TypeError('"game" attribute for a BoardGame object must be a Game object')
-    if isinstance(players, list):
-      for p in players:
-        if not isinstance(p, Player):
-          raise TypeError('Each object of the "players" attribute must be a Player object')
-      self._players = players
-    else:
-      raise TypeError('"players" attribute for a WinCondition object must be a list')
+    # Define a Game object
+    self.setGame(game)
+
+    # Define the list of players
+    self.setPlayers(players)
 
   def __str__(self):
     """
@@ -82,6 +76,39 @@ class BoardGame():
       if (end == False and i%numberOfPlayers == 0):
         self._game.increaseNumberOfRounds()
 
+  def getGame(self):
+    """
+    Get the game of the BoardGame object
+    
+    Args:
+        self: the BoardGame object
+    
+    Returns:
+        A Game object that represents the game of the BoardGame object
+    
+    Raises:
+        None
+    """
+    return self._game
+
+  def setGame(self,newGame):
+    """
+    Set the game of the BoardGame object
+    
+    Args:
+        self: the BoardGame object
+        newName: A Game object that represents the game of the BoardGame object
+    
+    Returns:
+        None
+    
+    Raises:
+        TypeError: Raise a TypeError if "game" is not a Game object
+    """
+    if isinstance(newGame, Game):
+      self._game = newGame
+    else:
+      raise TypeError('"game" attribute for a BoardGame object must be a Game object')
 
   def getPlayers(self):
     """
@@ -97,3 +124,27 @@ class BoardGame():
         None
     """
     return self._players
+
+  def setPlayers(self,newPlayers):
+    """
+    Set the players of the game
+    
+    Args:
+        self: the BoardGame object
+        newPlayers: a list of Player object 
+    
+    Returns:
+        None
+    
+    Raises:
+        TypeError: Raise a TypeError if "players" is not a list of Player objects
+    """
+    if isinstance(newPlayers, list):
+      for p in newPlayers:
+        if not isinstance(p, Player):
+          raise TypeError('Each object of the "players" attribute must be a Player object')
+      self._players = newPlayers
+    else:
+      raise TypeError('"players" attribute for a WinCondition object must be a list')
+
+

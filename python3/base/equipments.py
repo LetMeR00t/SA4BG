@@ -23,33 +23,16 @@ class Equipments():
         The new object that was instanciated
     
     Raises:
-        TypeError: Raise a TypeError if "cards" or "dices" is not a list (respectively of Card objects and Dice objects) or if "board" is not a Board object
+        None
     """
-    if isinstance(cards, list):
-      for l in cards:
-        if isinstance(l, list):
-          for c in l:
-            if not isinstance(c, Card):
-              raise TypeError('"cards" attribute for an Equipments object must be a list of Card objects list')
-        else:
-          raise TypeError('"cards" attribute for an Equipments object must be a list of Card objects list')
-      self._cards = cards
-    else:
-      raise TypeError('"cards" attribute for an Equipments object must be a list')
-    if isinstance(dices, list) or dices is None:
-      if dices is None:
-        self._dices = None
-      else:
-        for d in dices:
-          if not isinstance(d, Dice):
-            raise TypeError('"dices" attribute for an Equipments object must be a list of Dice objects')
-        self._dices = dices
-    else:
-      raise TypeError('"dices" attribute for an Equipments object must be a list')
-    if isinstance(board, Board) or board is None:
-      self._board = board
-    else:
-      raise TypeError('"board" attribute for an Equipments object must be a Board object')
+    # Set the Cards
+    self.setCards(cards)
+
+    # Set the Dices
+    self.setDices(dices)
+
+    # Set the physical Board
+    self.setBoard(board)
 
   def __str__(self):
     """
@@ -93,6 +76,32 @@ class Equipments():
     """
     return self._cards
 
+  def setCards(self,newCards):
+    """
+    Set the cards 
+    
+    Args:
+        self: the Equipments object
+        newCards: A list that contains all Card objects (separated in different stack)
+    
+    Returns:
+       None 
+    
+    Raises:
+        TypeError: Raise a TypeError if "cards" is not a list of list of Card objects
+    """
+    if isinstance(newCards, list):
+      for l in newCards:
+        if isinstance(l, list):
+          for c in l:
+            if not isinstance(c, Card):
+              raise TypeError('"cards" attribute for an Equipments object must be a list of Card objects list')
+        else:
+          raise TypeError('"cards" attribute for an Equipments object must be a list of Card objects list')
+      self._cards = newCards
+    else:
+      raise TypeError('"cards" attribute for an Equipments object must be a list')
+
   def addCard(self, i, card):
     """
     Add a new card in the list of cards at the index i 
@@ -107,7 +116,6 @@ class Equipments():
     
     Raises:
         TypeError: Raise a TypeError if "card" is not a Card object
-
     """
     if isinstance(card, Card):
       self._cards[i].append(card)
@@ -129,20 +137,44 @@ class Equipments():
     """
     return self._dices
 
-  def addDice(self, dice):
+  def setDices(self,newDices):
+    """
+    Set the dices 
+    
+    Args:
+        self: the Equipments object
+        newDices: A list that contains all Dice objects
+    
+    Returns:
+        None
+    
+    Raises:
+        TypeError: Raise a TypeError if "dices" is not a list of Dice objects
+    """
+    if isinstance(newDices, list) or newDices is None:
+      if newDices is None:
+        self._dices = None
+      else:
+        for d in newDices:
+          if not isinstance(d, Dice):
+            raise TypeError('"dices" attribute for an Equipments object must be a list of Dice objects')
+        self._dices = newDices
+    else:
+      raise TypeError('"dices" attribute for an Equipments object must be a list')
+
+  def addDice(self, newDice):
     """
     Add a new dice in the list of dices 
     
     Args:
         self: the Equipments object
-        dice: the new Dice object to add
+        newDice: the new Dice object to add
     
     Returns:
         None
     
     Raises:
         TypeError: Raise a TypeError if "dice" is not a Dice object
-
     """
     if isinstance(dice, Dice):
       self._dices.append(dice)
@@ -163,6 +195,25 @@ class Equipments():
         None
     """
     return self._board
+
+  def setBoard(self,newBoard):
+    """
+    Set the board 
+    
+    Args:
+        self: the Equipments object
+        newBoard: the new Board object
+    
+    Returns:
+        None
+    
+    Raises:
+        TypeError: Raise a TypeError if "board" is not a Board object
+    """
+    if isinstance(newBoard, Board) or newBoard is None:
+      self._board = newBoard
+    else:
+      raise TypeError('"board" attribute for an Equipments object must be a Board object')
 
   def shuffleTheCards(self, i):
     """

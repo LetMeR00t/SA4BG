@@ -50,6 +50,7 @@ class SixNimmt(Game):
     for p in players:
       for i in range(0,10):
         p.getEquipments().addCard(0,equipments.popCard(0))
+      print(p)
 
   def playTurnForPlayer(self,player):
     """
@@ -66,3 +67,19 @@ class SixNimmt(Game):
         None
     """
     pass
+
+  def reset(self):
+    """
+    This method reset the game for a new party
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        None
+    
+    Raises:
+        None
+    """
+    pass
+ 

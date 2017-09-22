@@ -25,6 +25,40 @@ class WinCondition(metaclass=ABCMeta):
     else:
       raise TypeError('"name" attribute for a Win_Condition object must be a string')
 
+  def getName(self):
+    """
+    Get the name of the WinCondition object
+    
+    Args:
+        self: the WinCondition object
+    
+    Returns:
+        A string that represents the name
+    
+    Raises:
+        None
+    """
+    return self._name
+
+  def setName(self,newName):
+    """
+    Set the name of the WinCondition object
+    
+    Args:
+        self: the WinCondition object
+        newName: A string that represents the name
+    
+    Returns:
+        None
+    
+    Raises:
+        TypeError: Raise a TypeError if "name" is not a string
+    """
+    if isinstance(newName, str):
+      self._name = newName
+    else:
+      raise TypeError('"name" attribute for a WinCondition object must be a string')
+
   def __str__(self):
     """
     Define the string represention of a Win_Condition object

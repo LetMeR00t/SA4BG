@@ -26,30 +26,24 @@ class Game(metaclass=ABCMeta):
         The new object that was instanciated
     
     Raises:
-        TypeError: Raise a TypeError if "name" is not a string
+        None
     """
-    if isinstance(name, str):
-      self._name =  name
-    else:
-      raise TypeError('"name" attribute for a Game object must be a string')
-    if isinstance(equipments, Equipments) or equipments is None:
-      self._equipments = equipments
-    else:
-      raise TypeError('"equipments" attribute for a Game object must be a list')
-    if isinstance(winConditions, list):
-      for w in winConditions:
-        if isinstance(w, WinCondition):
-          raise TypeError('Each object of the "winConditions" attribute must be a WinCondition object')
-      self._winConditions = winConditions
-    else:
-      raise TypeError('"winConditions" attribute for a WinCondition object must be a list')
-    if isinstance(history, History) or history is None:
-      self._history = history
-    else:
-      raise TypeError('"history" attribute for a Game object must be a History object')
+    # Set the name of the game
+    self.setName(name)
+
+    # Set the Equipments for this game
+    self.setEquipments(equipments)
+
+    # Set all of the WinConditions for this game
+    self.setWinConditions(winConditions)
+
+    # Set a History for the game
+    self.setHistory(history)
+
     # Define a number of rounds equals to 1
-    self._numberOfRounds = 1
-    # Define a variable that will contain the win condition(s)
+    self.setNumberOfRounds(1)
+
+    # Define a variable that will contain the win condition(s) when a game is finished
     self._victoryConditions = []
 
   def __str__(self):
@@ -102,20 +96,37 @@ class Game(metaclass=ABCMeta):
     """
     pass
 
-  def getWinConditions(self):
+  @abstractmethod
+  def reset(self):
     """
-    Get the list of WinCondition objects 
+    This method reset the game for a new party
+    This abstract method defines how the game is reset
     
     Args:
         self: the Game object
     
     Returns:
-        the list of WinCondition objects
+        None
     
     Raises:
         None
-    """ 
-    return self._winConditions
+    """
+    pass
+
+  def getVictoryCondition(self):
+    """
+    Get all the WinConditions in the victory conditions list 
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        A list of all WinConditions that matched 
+    
+    Raises:
+        None
+    """
+    return self._victoryConditions
 
   def addVictoryCondition(self,wc):
     """
@@ -131,7 +142,7 @@ class Game(metaclass=ABCMeta):
     Raises:
         None
     """
-    return self._victoryConditions.append(wc)
+    return self.getVictoryConditions().append(wc)
 
   def getNumberOfRounds(self):
     """
@@ -148,20 +159,58 @@ class Game(metaclass=ABCMeta):
     """
     return self._numberOfRounds
 
-  def increaseNumberOfRounds(self):
+  def setNumberOfRounds(self,newNumberOfRounds):
     """
-    Simply increase the number of rounds 
+    Set the number of rounds 
     
     Args:
         self: the Game object
+        newNumberOfRounds: an integer that represent the number of rounds to update
     
     Returns:
         None
     
     Raises:
+        TypeError: Raise a TypeError if "newNumberOfRounds" is not an integer
+    """
+    if isinstance(newNumberOfRounds, int):
+      self._numberOfRounds = newNumberOfRounds
+    else:
+      raise TypeError('"numberOfRounds" attribute for a Game object must be an integer')
+
+  def getName(self):
+    """
+    Get the name of the Game object
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        A string that represents the name
+    
+    Raises:
         None
     """
-    self._numberOfRounds += 1
+    return self._name
+ 
+  def setName(self,newName):
+    """
+    Set the name of the Game object
+    
+    Args:
+        self: the Game object
+        newName: A string that represents the name
+    
+    Returns:
+        None
+    
+    Raises:
+        TypeError: Raise a TypeError if "name" is not a string
+    """
+    if isinstance(newName, str):
+      self._name = newName
+    else:
+      raise TypeError('"name" attribute for a Game object must be a string')
 
   def getEquipments(self):
     """
@@ -177,3 +226,95 @@ class Game(metaclass=ABCMeta):
         None
     """
     return self._equipments
+
+  def setEquipments(self,newEquipments):
+    """
+    Set the Equipments object of the current game 
+    
+    Args:
+        self: the Game object
+        newEquipments: An Equipments object that represent all the private equipments of this player
+    
+    Returns:
+        The Equipments object
+    
+    Raises:
+        TypeError: Raise a TypeError if "newEquipments" is not an Equipments object
+    """
+    if isinstance(newEquipments, Equipments) or newEquipments is None:
+      self._equipments = newEquipments
+    else:
+      raise TypeError('"equipments" attribute for a Game object must be a list')
+ 
+  def getWinConditions(self):
+    """
+    Get the list of WinCondition objects 
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        the list of WinCondition objects
+    
+    Raises:
+        None
+    """ 
+    return self._winConditions
+
+  def setWinConditions(self,newWinConditions):
+    """
+    Set the WinConditions list of the current game 
+    
+    Args:
+        self: the Game object
+        newWinConditions: An WinConditions object that represent all the winConditions of this game
+    
+    Returns:
+        The WinConditions object
+    
+    Raises:
+        TypeError: Raise a TypeError if "newWinConditions" is not a list of WinCondition objects
+    """
+    if isinstance(newWinConditions, list) or newWinConditions is None:
+      for wc in newWinConditions:
+        if not isinstance(newWinConditions, WinCondition):
+          raise TypeError('"winConditions" attribute for a Game object must be list of a WinCondition object')
+      self._winConditions = newWinConditions
+    else:
+      raise TypeError('"winConditions" attribute for a Game object must be a list')
+ 
+  def getHistory(self):
+    """
+    Get the History objects
+    
+    Args:
+        self: the Game object
+    
+    Returns:
+        the History object
+    
+    Raises:
+        None
+    """ 
+    return self._history
+
+  def setHistory(self,newHistory):
+    """
+    Set the History object of the current game 
+    
+    Args:
+        self: the Game object
+        newHistory: An History object that represent all the history of this game
+    
+    Returns:
+        The History object
+    
+    Raises:
+        TypeError: Raise a TypeError if "newHistory" is not a History object
+    """
+    if isinstance(newHistory, History) or newHistory is None:
+      self._history = newHistory
+    else:
+      raise TypeError('"history" attribute for a Game object must be a History object')
+ 
+ 

@@ -18,19 +18,35 @@ class Player():
         The new object that was instanciated
     
     Raises:
-        TypeError: Raise a TypeError if "name" is not a string
+        None
     """
-    if isinstance(name, str):
-      self._name =  name
-    else:
-      raise TypeError('"name" attribute for a Player object must be a string')
-    # Define a private empty Equipments object
-    if isinstance(equipments, Equipments) or equipments is None:
-      self._equipments = equipments
-    else:
-      raise TypeError('"equipments" attribute for a Player object must be a Equipments object')
+    # Set the name of the player
+    self.setName(name)
+
+    # Define an empty Equipments object
+    self.setEquipments(equipments)
+
     # Define a score equals to 0
-    self._score = 0
+    self.setScore(0)
+
+  def reset(self):
+    """
+    Reset a player for a new game
+    
+    Args:
+        self: the Player object
+    
+    Returns:
+        None
+    
+    Raises:
+        None
+    """
+    # Define a new empty Equipments object
+    self.getEquipments().reset()
+
+    # Define a new score equals to 0
+    self.setScore(0)
 
   def __str__(self):
     """
@@ -62,6 +78,25 @@ class Player():
     """
     return self._name
 
+  def setName(self,newName):
+    """
+    Set the name of the Player object
+    
+    Args:
+        self: the Player object
+        newName: A string that represents the name
+    
+    Returns:
+        None
+    
+    Raises:
+        TypeError: Raise a TypeError if "name" is not a string
+    """
+    if isinstance(newName, str):
+      self._name = newName
+    else:
+      raise TypeError('"name" attribute for a Player object must be a string')
+ 
   def getScore(self):
     """
     Get the score of the Player object
@@ -89,9 +124,13 @@ class Player():
         None
     
     Raises:
-        None
+        TypeError: Raise a TypeError if "newScore" is not an integer
+
     """
-    self._score = newScore
+    if isinstance(newScore, int):
+      self._score = newScore
+    else:
+      raise TypeError('"score" attribute for a Player object must be an integer')
 
   def getEquipments(self):
     """
@@ -107,3 +146,24 @@ class Player():
         None
     """
     return self._equipments
+
+  def setEquipments(self,newEquipments):
+    """
+    Set the private Equipments object of the Player object
+    
+    Args:
+        self: the Player object
+        newEquipments: An Equipments object that represent all the private equipments of this player
+    
+    Returns:
+        None
+            
+    Raises:
+        TypeError: Raise a TypeError if "newEquipments" is not an Equipments object
+    """
+    if isinstance(newEquipments, Equipments) or newEquipments is None:
+      self._equipments = newEquipments
+    else:
+      raise TypeError('"equipments" attribute for a Player object must be a Equipments object')
+ 
+
